@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DB\Engine;
+namespace class/database/engine;
 
 class MongoDB implements DriverInterface
 {
