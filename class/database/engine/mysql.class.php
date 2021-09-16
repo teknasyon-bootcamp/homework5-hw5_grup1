@@ -3,15 +3,31 @@
 class mysql extends PDO
 {
     private PDO $PDO;
+      
     public function __construct(
-        String $host,
-        String $user,
-        String $pass,
-        String $dbname
+        public String  $host ="localhost",
+        public String   $user="root",
+        public String     $pass="",
+        public String     $dbname="hafta"
+        
     ){
 
-        $this->PDO = new PDO("mysql:host=$host;dbname=$dbname",$user,$pass);
+        $this->PDO = new PDO("mysql:host=$this->host;dbname=$this->dbname",$this->user,$this->pass);
+        
 
+    }
+    public function connect()
+    {
+            try {
+                $this->PDO = new PDO("mysql:host=$this->host;dbname=$this->dbname",$this->user,$this->pass);
+
+                return $this->PDO;
+    
+            
+            } catch (Exception $e) {
+                echo "Veritabanı hatası {$e->getMessage()}";
+                exit(1);
+            }
     }
 
     public function all(String $table):array
@@ -50,8 +66,13 @@ class mysql extends PDO
 
         $statement = $this->PDO->prepare($query);
 
-        $result = $statement->execute($valueArray);
+        $result = $statement->execute($values);
 
         return $result;
     }
+
+
+
+   
+
 }
