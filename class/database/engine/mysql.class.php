@@ -1,37 +1,30 @@
 <?php
-
-class mysql extends PDO
+namespace database\engine; 
+class mysql implements DriverI
 {
-    private PDO $PDO;
-      
+    public $PDO;
     public function __construct(
-        public String  $host ="localhost",
-        public String   $user="root",
-        public String     $pass="",
-        public String     $dbname="hafta"
-        
+        public String  $host ="mariadb",
+        public String  $user="root",
+        public String  $pass="root",
+        public String  $dbname="default"
     ){
-
-        $this->PDO = new PDO("mysql:host=$this->host;dbname=$this->dbname",$this->user,$this->pass);
-        
-
+        $this->PDO = new \PDO("mysql:host=$this->host;dbname=$this->dbname",$this->user,$this->pass);
+		return $this->PDO;
     }
-    public function connect()
+	
+	public function connect()
     {
             try {
                 $this->PDO = new PDO("mysql:host=$this->host;dbname=$this->dbname",$this->user,$this->pass);
-
                 return $this->PDO;
-    
-            
             } catch (Exception $e) {
                 echo "Veritabanı hatası {$e->getMessage()}";
                 exit(1);
             }
     }
-
     public function all(String $table):array
-    {
+    { 
         $query = "SELECT * FROM $table";
 
         $statement = $this->PDO->prepare($query);
@@ -69,6 +62,16 @@ class mysql extends PDO
         $result = $statement->execute($values);
 
         return $result;
+    }
+	
+	public function  update(String $table,mixed $id,array $values):bool
+    {
+		
+    }
+	
+	public function delete(String $table,mixed $id):bool
+    {
+		
     }
 
 

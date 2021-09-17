@@ -1,5 +1,6 @@
-<?php
-interface Driver
+<?php 
+namespace database\engine; 
+interface DriverI
 {
     public function all(String $table):array;
     public function find(String $table,mixed $id):mixed;

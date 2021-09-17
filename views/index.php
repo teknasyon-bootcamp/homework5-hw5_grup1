@@ -1,4 +1,10 @@
-
+<?php 
+require "../autoloader.php";
+$Book = new Book;  
+$BookList = $Book->bookList();
+print_r($BookList);
+exit;
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>

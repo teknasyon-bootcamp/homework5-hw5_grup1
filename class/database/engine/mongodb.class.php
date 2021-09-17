@@ -1,5 +1,5 @@
 <?php
-class MongoDB implements Driver
+class MongoDB implements DriverI
 {
     public $db;
 	private $dbname;
