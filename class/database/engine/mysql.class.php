@@ -67,13 +67,14 @@ class mysql extends \PDO implements DriverI
     {
         $setSerialize = $this->serialize($values,'set');
 
-        $query = "UPDATE $table SET $setSerialize WHERE id:id";
+        $query = "UPDATE $table SET $setSerialize WHERE id=:id";
 
         $statement = $this->PDO->prepare($query);
 
         foreach ($values as $param => $value) {
             $statement->bindValue(":$param", $value);
         }
+        $statement->bindValue(":id", $id);
 
         $result = $statement->execute();
 
