@@ -1,6 +1,9 @@
 <?php  
 namespace database;
-class Database{
+use database\engine\DriverI;
+
+class Database implements DriverI
+{
 	public $config;
 	public $db;
 	public function __construct(){
@@ -19,22 +22,24 @@ class Database{
 		$this->db = new engine\mongodb();
 		}
 	}
-	public function all(String $table):array
+	public function all(String $table): array
 	{
 		return $this->db->all($table);
 	}
-    public function find(String $table,mixed $id):mixed
+    public function find(String $table, mixed $id): mixed
 	{
-		return $this->db->find($table,$id);
+		return $this->db->find($table, $id);
 	}
-    public function create(String $table,array $values):bool
+    public function create(String $table, array $values): bool
 	{
-		return $this->db->create($table,$values);
+		return $this->db->create($table, $values);
 	}
-    public function update(String $table,mixed $id,array $values):bool{
-		return $this->db->update($table,$values);
+    public function update(String $table, mixed $id, array $values): bool
+    {
+		return $this->db->update($table, $id, $values);
 	}
-    public function delete(String $table,mixed $id):bool{
-		return $this->db->delete($table,$values);
+    public function delete(String $table, mixed $id): bool
+    {
+		return $this->db->delete($table, $id);
 	}
 }
