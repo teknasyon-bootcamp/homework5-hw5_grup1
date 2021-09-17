@@ -1,26 +1,43 @@
 <?php  
 namespace database;
 use database\engine\DriverI;
+use database\engine\mysql;
 
 class Database implements DriverI
 {
 	public $config;
 	public $db;
+	public $engine;
 	public function __construct(){
 		// Config
 		$configdir = (__DIR__)."/../../config.php";
 		if(file_exists($configdir)){
 		$this->config = require $configdir; 
+		$this->engine= $this->config["engine"];
+      
 		} 
-		if($this->config["engine"]=="mysql"){ 
-		$this->db = new engine\mysql(
-		$this->config["host"],
-		$this->config["user"],
-		$this->config["password"]
-		);
-		}elseif($this->config["engine"]=="mongodb"){
-		$this->db = new engine\mongodb();
-		}
+        if($this->engine == "mysql" ){ 
+	     
+			$db =new engine\mysql(
+			$this->config["host"],
+			$this->config["user"],
+			$this->config["password"]
+			);
+			}elseif($this->engine == "mongodb"){
+			$db = new engine\mongodb();
+
+			}
+
+		$this->setDriver($db);
+
+
+	}
+	public function setDriver(DriverI $db): void 
+	 {
+		  
+           $this->db= $db;
+		 
+
 	}
 	public function all(String $table): array
 	{
