@@ -1,6 +1,7 @@
 <?php
 namespace App\Logger;
 
+use database\Database;
 use logger\driver\{
     DatabaseLog,
     FileLog,
@@ -21,16 +22,23 @@ class logger implements loggableI
             $this->logging= $this->config["logging"];
         }
 
-        if($this->logging == "database" ){
-            $this->logdriver = new DatabaseLog();
-        }elseif($this->logging == "file"){
+        if ($this->logging == "database")
+        {
+            $this->logdriver = new DatabaseLog(new Database());
+        }
+        elseif ($this->logging == "file")
+        {
             $this->logdriver = new FileLog();
+        }
+        elseif ($this->logging == "null")
+        {
+            return;
         }
 
         $this->setDriver($this->logdriver);
     }
 
-    protected function setDriver(LogDriverI $logdriver):void
+    public function setDriver(LogDriverI $logdriver):void
     {
         $this->logdriver = $logdriver;
     }
@@ -38,6 +46,10 @@ class logger implements loggableI
     public static function log(string $message, int $level):void
     {
         $log = new static();
-        $log->logdriver->log($message, $level);
+
+        if (isset($log->logdriver))
+        {
+            $log->logdriver->log($message, $level);
+        }
     }
 }
