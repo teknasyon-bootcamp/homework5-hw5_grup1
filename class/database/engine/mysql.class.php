@@ -131,5 +131,16 @@ class mysql extends \PDO implements DriverI
 
 
 
+   //kitaptaki bölümü var ise listele 
+  public function sectionList()
+  {
+      $statement = $this->PDO->prepare("select * from book b
+      left join section s on s.book_id = b.id
+      where section = 0");
+      $statement->execute();
+      $row = $statement->fetchAll(); // Use fetchAll() if you w
+      if($row != '') return $row;
+      else return ['msg' => 'kitapin bölümü yok'];
+  }
 
 }
