@@ -41,18 +41,18 @@ class Book
     }
     
     // kitaba yeni bölüm ekleme fonksiyonu
-    public function sectionAdd()
+    public function sectionAdd(array $data)
     { // field bir array  içinde sectionun sütünları var
-        $this->db->create("section", array("name" => "deneme", "created_at" => "faasd", "update_at" => "deneme"));
-        print_r($this->db->all("section"));
+       return $this->db->create("section", array(array $data));
+        
     }
 
     // kitapta bölüm editleme fonksiyonu 
-    public function sectionEdit(int $id)
+    public function sectionEdit(int $id,array $data)
     {
 
-        $this->db->update("section", $id, array("name" => "deneme", "created_at" => "faasd", "update_at" => "deneme"));
-        print_r($this->db->all("section"));
+      return  $this->db->update("section", $id, array($data));
+      
     }
 
     // kitapta ki bölümleri güncelleme fonksiyonu 
