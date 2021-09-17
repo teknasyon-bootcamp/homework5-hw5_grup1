@@ -43,7 +43,7 @@ class Book
     // kitaba yeni bölüm ekleme fonksiyonu
     public function sectionAdd(array $data)
     { // field bir array  içinde sectionun sütünları var
-       return $this->db->create("section", array(array $data));
+       return $this->db->create("section", array($data));
         
     }
 
