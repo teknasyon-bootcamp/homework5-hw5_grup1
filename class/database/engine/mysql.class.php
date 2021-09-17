@@ -1,26 +1,25 @@
 <?php
 namespace database\engine;
-
-// require_once '../../../autoloader.php'; // kodlanırken kontrol etmek için
-
-class mysql implements DriverI
+class mysql extends \PDO implements DriverI
 {
-    public static function connect(
-        string  $host ="localhost",
-        string  $user="root",
-        string  $pass="",
-        string  $dbname="test"
+    private \PDO $PDO;
+
+    public function __construct(
+        private string  $host ="localhost",
+        private string  $user="root",
+        private string  $pass="",
+        private string  $dbname="test"
     ){
 
-        return new \PDO("mysql:host=$host;dbname=$dbname",$user,$pass);
+        $this->PDO = new \PDO("mysql:host=$this->host;dbname=$this->dbname",$this->user,$this->pass);
 
     }
 
-    public static function all(string $table): array
+    public function all(string $table): array
     {
         $query = "SELECT * FROM $table";
 
-        $statement = self::connect()->prepare($query);
+        $statement = $this->PDO->prepare($query);
 
         $statement->execute();
 
@@ -29,13 +28,13 @@ class mysql implements DriverI
         return $result;
     }
 
-    public static function find(string $table, mixed $id): mixed
+    public function find(string $table, mixed $id): mixed
     {
         $idValue = (is_numeric($id) || is_string($id)) ? $id : $id['id'];
 
         $query = "SELECT * FROM $table WHERE id=:id";
 
-        $statement = self::connect()->prepare($query);
+        $statement = $this->PDO->prepare($query);
 
         $statement->execute([
             'id' => $idValue
@@ -46,46 +45,46 @@ class mysql implements DriverI
         return $result;
     }
 
-    public static function create(string $table, array $values): bool
+    public function create(string $table, array $values): bool
     {
-        $columnSerialize = self::serialize($values,'column');
-        $valuesSerialize = self::serialize($values,'value');
+        $columnSerialize = $this->serialize($values,'column');
+        $valuesSerialize = $this->serialize($values,'value');
 
         $query = "INSERT INTO $table($columnSerialize) values($valuesSerialize)";
 
-        $statement = self::connect()->prepare($query);
+        $statement = $this->PDO->prepare($query);
 
         foreach ($values as $param => $value) {
             $statement->bindValue(":$param", $value);
         }
 
-        $result = $statement->execute($values);
+        $result = $statement->execute();
 
         return $result;
     }
 
-    public static function update(string $table, mixed $id, array $values): bool
+    public function update(string $table, mixed $id, array $values): bool
     {
-        $setSerialize = self::serialize($values,'set');
+        $setSerialize = $this->serialize($values,'set');
 
         $query = "UPDATE $table SET $setSerialize WHERE id:id";
 
-        $statement = self::connect()->prepare($query);
+        $statement = $this->PDO->prepare($query);
 
         foreach ($values as $param => $value) {
             $statement->bindValue(":$param", $value);
         }
 
-        $result = $statement->execute($values);
+        $result = $statement->execute();
 
         return $result;
     }
 
-    public static function delete(string $table, mixed $id): bool
+    public function delete(string $table, mixed $id): bool
     {
         $query = "DELETE FROM $table WHERE id=:id";
 
-        $statement = self::connect()->prepare($query);
+        $statement = $this->PDO->prepare($query);
 
         $result = $statement->execute([
             'id' => $id
@@ -94,16 +93,18 @@ class mysql implements DriverI
         return $result;
     }
 
-    public static function serialize(array $values, string $type): mixed
+    public function serialize(array $values, string $type): mixed
     {
 
-        $properties = get_object_vars($values);
-        $propertiesTotal = count($properties);
-        $propertiesCounter = 0;
+        $propertiesCounter = 1;
         $result = '';
 
-        foreach ($properties as $column => $value )
+        foreach ($values as $column => $value )
         {
+            if ($propertiesCounter > 1)
+            {
+                $result .= ",";
+            }
 
             if ($type == 'value')
             {
@@ -120,10 +121,7 @@ class mysql implements DriverI
 
             $propertiesCounter++;
 
-            if ($propertiesCounter < $propertiesTotal)
-            {
-                $result .= ",";
-            }
+
 
         }
 
@@ -134,17 +132,3 @@ class mysql implements DriverI
 
 
 }
-
-/*
- *
- * Kullanım denemeleri;
- *
-mysql::create("book",[
-    "name"=> ("Intibah"),
-    "summary" => ("Ozet"),
-    "page_count" => (250)
-]);
-
-var_dump(mysql::all("book"));
-
-*/
