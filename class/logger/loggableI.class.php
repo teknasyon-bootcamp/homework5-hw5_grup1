@@ -4,6 +4,6 @@ namespace logger;
 
 interface loggableI
 {
-    public function log(string $message, int $level): void;
+    public static function log(string $message, int $level): void;
 
 }
