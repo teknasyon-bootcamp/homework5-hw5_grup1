@@ -24,7 +24,7 @@ exit;
   <body class="bg-light">
       <!-- Header -->
       <nav class="navbar navbar-expand-lg navbar-warning bg-warning mb-5">
-        <div class="container-fluid">
+        <div class="container">
           <a class="navbar-brand text-light" href="#">
             <img
               src="https://scontent.fsof10-1.fna.fbcdn.net/v/t1.18169-9/22853144_321854368280724_921982228724781455_n.png?_nc_cat=111&ccb=1-5&_nc_sid=174925&_nc_ohc=uxiBkjhiXJ8AX__96X0&_nc_ht=scontent.fsof10-1.fna&oh=0dfcb8ee3e647bc65838d5ec98c93992&oe=6166FE4A"
@@ -49,13 +49,13 @@ exit;
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link active text-dark" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
                 <a class="nav-link text-dark" href="#">Books</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link text-dark" href="#">Authors</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn btn-info text-dark ms-2" href="#">Add New Book</a>
               </li>
             </ul>
           </div>
@@ -67,7 +67,7 @@ exit;
         <!-- Carousel & Banners -->
         <div class="row">
           <!-- Carousel -->
-          <div class="col-md-8">
+          <div class="col-md-8 mb-5">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
               <div class="carousel-indicators">
                 <button
@@ -122,17 +122,17 @@ exit;
           <!-- Banners -->
         </div>
         <!-- Carousel & Banners -->
-
+        <hr>
         <!-- Most Populer Books Section -->
         <section>
           <!-- Title -->
-          <h3 class="text-center mt-5">Most Populer Books</h3>
+          <h3 class="text-center">Most Populer Books</h3>
           <!-- Title -->
 
           <!-- Cards -->
-          <div class="row my-5 mx-auto">
+          <div class="row my-5">
             <div class="col-md-3">
-              <div class="card" style="width: 13rem">
+              <div class="card mx-auto" style="width: 13rem">
                 <img src="https://m.media-amazon.com/images/I/91jnWhYzvoL._AC_UY327_QL65_.jpg" class="card-img-top" alt="" style="height: 17rem" />
                 <div class="card-body text-center">
                   <h5 class="card-title">Book Title</h5>
@@ -142,7 +142,7 @@ exit;
               </div>
             </div>
             <div class="col-md-3">
-              <div class="card" style="width: 13rem">
+              <div class="card mx-auto" style="width: 13rem">
                 <img src="https://m.media-amazon.com/images/I/A1JruQJ1t9L._AC_UY327_FMwebp_QL65_.jpg" class="card-img-top" alt="" style="height: 17rem" />
                 <div class="card-body text-center">
                   <h5 class="card-title">Book Title</h5>
@@ -152,7 +152,7 @@ exit;
               </div>
             </div>
             <div class="col-md-3">
-              <div class="card" style="width: 13rem">
+              <div class="card mx-auto" style="width: 13rem">
                 <img src="https://m.media-amazon.com/images/I/81571i9cV-L._AC_UY327_QL65_.jpg" class="card-img-top" alt="" style="height: 17rem" />
                 <div class="card-body text-center">
                   <h5 class="card-title">Book Title</h5>
@@ -162,7 +162,7 @@ exit;
               </div>
             </div>
             <div class="col-md-3">
-              <div class="card" style="width: 13rem">
+              <div class="card mx-auto" style="width: 13rem">
                 <img src="https://m.media-amazon.com/images/I/81gU8YQxlSL._AC_UY327_QL65_.jpg" class="card-img-top" alt="" style="height: 17rem" />
                 <div class="card-body text-center">
                   <h5 class="card-title">Book Title</h5>
@@ -174,7 +174,7 @@ exit;
           </div>
           <div class="row my-5 mx-auto">
             <div class="col-md-3">
-              <div class="card" style="width: 13rem">
+              <div class="card mx-auto" style="width: 13rem">
                 <img src="https://m.media-amazon.com/images/I/716QjcUuBWL._AC_UY327_QL65_.jpg" class="card-img-top" alt="" style="height: 18rem" />
                 <div class="card-body text-center">
                   <h5 class="card-title">Book Title</h5>
@@ -184,7 +184,7 @@ exit;
               </div>
             </div>
             <div class="col-md-3">
-              <div class="card" style="width: 13rem">
+              <div class="card mx-auto" style="width: 13rem">
                 <img src="https://m.media-amazon.com/images/I/818Hax2nTXL._AC_UY327_QL65_.jpg" class="card-img-top" alt="" style="height: 18rem" />
                 <div class="card-body text-center">
                   <h5 class="card-title">Book Title</h5>
@@ -194,7 +194,7 @@ exit;
               </div>
             </div>
             <div class="col-md-3">
-              <div class="card" style="width: 13rem">
+              <div class="card mx-auto" style="width: 13rem">
                 <img src="https://m.media-amazon.com/images/I/71wIX869Z0S._AC_UY327_QL65_.jpg" class="card-img-top" alt="" style="height: 18rem" />
                 <div class="card-body text-center">
                   <h5 class="card-title">Book Title</h5>
@@ -204,7 +204,7 @@ exit;
               </div>
             </div>
             <div class="col-md-3">
-              <div class="card" style="width: 13rem">
+              <div class="card mx-auto" style="width: 13rem">
                 <img src="https://m.media-amazon.com/images/I/912TysDj8cL._AC_UY327_QL65_.jpg" class="card-img-top" alt="" style="height: 18rem" />
                 <div class="card-body text-center">
                   <h5 class="card-title">Book Title</h5>
@@ -236,20 +236,23 @@ exit;
       </main>
     </div>
     <!-- Footer -->
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-4 border-top bg-warning">
-      <p class="col-md-4 mb-0 text-muted">© 2021 HW5-Group1</p>
-      <a href="#" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
-        ><img
-          src="https://scontent.fsof10-1.fna.fbcdn.net/v/t1.18169-9/22853144_321854368280724_921982228724781455_n.png?_nc_cat=111&ccb=1-5&_nc_sid=174925&_nc_ohc=uxiBkjhiXJ8AX__96X0&_nc_ht=scontent.fsof10-1.fna&oh=0dfcb8ee3e647bc65838d5ec98c93992&oe=6166FE4A"
-          alt=""
-          width="30"
-          height="32"
-      /></a>
-      <ul class="nav col-md-4 justify-content-end">
-        <li class="nav-item"><a href="#" class="nav-link text-dark px-2 text-muted">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link text-dark px-2 text-muted">Books</a></li>
-        <li class="nav-item"><a href="#" class="nav-link text-dark px-2 text-muted">Authors</a></li>
-      </ul>
+    <footer class="py-3 mt-4 border-top bg-warning">
+      <div class="container d-flex flex-wrap justify-content-between align-items-center">
+          <p class="col-md-4 mb-0 text-muted ">© 2021 HW5-Group1</p>
+            <div class="justify-content-center">
+              <a href="#" class="col-md-4 link-dark text-decoration-none"
+            ><img
+              src="https://scontent.fsof10-1.fna.fbcdn.net/v/t1.18169-9/22853144_321854368280724_921982228724781455_n.png?_nc_cat=111&ccb=1-5&_nc_sid=174925&_nc_ohc=uxiBkjhiXJ8AX__96X0&_nc_ht=scontent.fsof10-1.fna&oh=0dfcb8ee3e647bc65838d5ec98c93992&oe=6166FE4A"
+              alt=""
+              width="30"
+              height="32"
+          /></a>
+          </div>
+        <ul class="nav col-md-4 justify-content-end">
+          <li class="nav-item"><a href="#" class="nav-link text-dark px-2 text-muted">Books</a></li>
+          <li class="nav-item"><a href="#" class="nav-link text-dark px-2 text-muted">Authors</a></li>
+        </ul>
+      </div>  
     </footer>
     <!-- Footer -->
     <script
