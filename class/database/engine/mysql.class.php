@@ -1,33 +1,26 @@
 <?php
-namespace database\engine; 
+namespace database\engine;
+
+// require_once '../../../autoloader.php'; // kodlanırken kontrol etmek için
+
 class mysql implements DriverI
 {
-    public $PDO;
-    public function __construct(
-        public String  $host ="mariadb",
-        public String  $user="root",
-        public String  $pass="root",
-        public String  $dbname="default"
+    public static function connect(
+        string  $host ="localhost",
+        string  $user="root",
+        string  $pass="",
+        string  $dbname="test"
     ){
-        $this->PDO = new \PDO("mysql:host=$this->host;dbname=$this->dbname",$this->user,$this->pass);
-		return $this->PDO;
+
+        return new \PDO("mysql:host=$host;dbname=$dbname",$user,$pass);
+
     }
-	
-	public function connect()
+
+    public static function all(string $table): array
     {
-            try {
-                $this->PDO = new PDO("mysql:host=$this->host;dbname=$this->dbname",$this->user,$this->pass);
-                return $this->PDO;
-            } catch (Exception $e) {
-                echo "Veritabanı hatası {$e->getMessage()}";
-                exit(1);
-            }
-    }
-    public function all(String $table):array
-    { 
         $query = "SELECT * FROM $table";
 
-        $statement = $this->PDO->prepare($query);
+        $statement = self::connect()->prepare($query);
 
         $statement->execute();
 
@@ -36,13 +29,13 @@ class mysql implements DriverI
         return $result;
     }
 
-    public function find(String $table,mixed $id):mixed
+    public static function find(string $table, mixed $id): mixed
     {
         $idValue = (is_numeric($id) || is_string($id)) ? $id : $id['id'];
 
         $query = "SELECT * FROM $table WHERE id=:id";
 
-        $statement = $this->PDO->prepare($query);
+        $statement = self::connect()->prepare($query);
 
         $statement->execute([
             'id' => $idValue
@@ -53,29 +46,105 @@ class mysql implements DriverI
         return $result;
     }
 
-    public function create(String $table,array $values):bool
+    public static function create(string $table, array $values): bool
     {
-        $query = "INSERT INTO $table() values()";
+        $columnSerialize = self::serialize($values,'column');
+        $valuesSerialize = self::serialize($values,'value');
 
-        $statement = $this->PDO->prepare($query);
+        $query = "INSERT INTO $table($columnSerialize) values($valuesSerialize)";
+
+        $statement = self::connect()->prepare($query);
+
+        foreach ($values as $param => $value) {
+            $statement->bindValue(":$param", $value);
+        }
 
         $result = $statement->execute($values);
 
         return $result;
     }
-	
-	public function  update(String $table,mixed $id,array $values):bool
+
+    public static function update(string $table, mixed $id, array $values): bool
     {
-		
+        $setSerialize = self::serialize($values,'set');
+
+        $query = "UPDATE $table SET $setSerialize WHERE id:id";
+
+        $statement = self::connect()->prepare($query);
+
+        foreach ($values as $param => $value) {
+            $statement->bindValue(":$param", $value);
+        }
+
+        $result = $statement->execute($values);
+
+        return $result;
     }
-	
-	public function delete(String $table,mixed $id):bool
+
+    public static function delete(string $table, mixed $id): bool
     {
-		
+        $query = "DELETE FROM $table WHERE id=:id";
+
+        $statement = self::connect()->prepare($query);
+
+        $result = $statement->execute([
+            'id' => $id
+        ]);
+
+        return $result;
+    }
+
+    public static function serialize(array $values, string $type): mixed
+    {
+
+        $properties = get_object_vars($values);
+        $propertiesTotal = count($properties);
+        $propertiesCounter = 0;
+        $result = '';
+
+        foreach ($properties as $column => $value )
+        {
+
+            if ($type == 'value')
+            {
+                $result .= ":$column";
+            }
+            elseif ($type == 'column')
+            {
+                $result .= $column;
+            }
+            elseif ($type == 'set')
+            {
+                $result .= "$column=:$column";
+            }
+
+            $propertiesCounter++;
+
+            if ($propertiesCounter < $propertiesTotal)
+            {
+                $result .= ",";
+            }
+
+        }
+
+        return $result;
     }
 
 
 
-   
 
 }
+
+/*
+ *
+ * Kullanım denemeleri;
+ *
+mysql::create("book",[
+    "name"=> ("Intibah"),
+    "summary" => ("Ozet"),
+    "page_count" => (250)
+]);
+
+var_dump(mysql::all("book"));
+
+*/
