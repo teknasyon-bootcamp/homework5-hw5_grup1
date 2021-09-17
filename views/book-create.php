@@ -1,3 +1,29 @@
+<?php 
+require_once '../autoloader.php';
+require_once('../class/Book.class.php');
+$book = new Book;
+  
+if(isset($_POST['add'])) {
+
+  $fields = [
+    'name' => $_POST['name'],
+    'summary' => $_POST['summary'],
+    'author' => $_POST['author'],
+    'page_count' => $_POST['page_count'],
+    'image_url' => $_POST['image_url'],
+    'created_at' =>time(),
+    'update_at' => time(),
+  ];
+
+  $book->addBook($fields);
+ 
+}
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -52,11 +78,12 @@
       </nav>
     <!-- Header -->
     <!-- Form -->
+   
     <div class="container bg-light mb-5">
       <main class="mx-auto">
         <h5 class="text-center text-dark p-3 mt-2">Create Book</h5>
         <hr>
-        <form id="createBookForm" class="d-grid gap-2 col-6 mx-auto my-5" action="" method="post">
+        <form id="book-create" class="d-grid gap-2 col-6 mx-auto my-5" action="book-create.php" method="post">
           <div class="mb-2">
             <input class="form-control" id="name" type="text" placeholder="Name" name="name" value=""/>
           </div>
@@ -73,11 +100,12 @@
             <input class="form-control" id="image_url" type="url" placeholder="Image Url" name="image_url" value=""/>
           </div>
           <div class="d-grid">
-            <button class="btn btn-info text-light" type="submit" name="create" >Create</button>
+            <button class="btn btn-info text-light" type="submit" name="add" >Add</button>
           </div>
         </form>
       </main>
     </div>
+    
     <!-- Form -->
     <!-- Footer -->
     <footer class="py-3 mt-4 border-top bg-warning" style="position:absolute; bottom: 0; width: 100%">

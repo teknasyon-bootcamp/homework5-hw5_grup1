@@ -3,8 +3,7 @@ namespace database;
 use database\engine\DriverI;
 use database\engine\mysql;
 
-class Database implements DriverI
-{
+class Database implements DriverI {
 	public $config;
 	public $db;
 	public $engine;

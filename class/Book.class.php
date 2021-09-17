@@ -1,8 +1,10 @@
 <?php
 
+
 class Book
 {
     public $db;
+
     public function __construct()
     {
         $this->db = new database\Database();
@@ -37,7 +39,7 @@ class Book
     //kitap ekleme fonksiyonu
     public function addBook(array $data)
     {   // field bir array  içinde book sütünları var
-        return  $this->db->create("book", array($data));
+        return  $this->db->create("book", $data);
     }
     
     // kitaba yeni bölüm ekleme fonksiyonu

@@ -1,4 +1,5 @@
 <?php
+
 namespace database\engine;
 class mysql extends \PDO implements DriverI
 {
@@ -7,8 +8,8 @@ class mysql extends \PDO implements DriverI
     public function __construct(
         private string  $host ="localhost",
         private string  $user="root",
-        private string  $pass="",
-        private string  $dbname="test"
+        private string  $pass=" ",
+        private string  $dbname="hafta"
     ){
 
         $this->PDO = new \PDO("mysql:host=$this->host;dbname=$this->dbname",$this->user,$this->pass);
@@ -17,6 +18,7 @@ class mysql extends \PDO implements DriverI
 
     public function all(string $table): array
     {
+        
         $query = "SELECT * FROM $table";
 
         $statement = $this->PDO->prepare($query);
