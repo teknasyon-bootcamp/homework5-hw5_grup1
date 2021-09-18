@@ -107,7 +107,7 @@ if (isset($_POST['add'])) {
                 <div class="card-body text-center" >
                   <h5 class="card-title" ><?=$v['name']?></h5>
                   <p class="card-text" ><?=$v['author']?></p>
-                  <a href="book.php" class="btn btn-warning">Details...</a>
+                  <a href="book-delete.php?id=<?=$v['id']?>" class="btn btn-danger">Delete</a>
                 </div>
               </div>      
                     
