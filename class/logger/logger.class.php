@@ -1,5 +1,5 @@
 <?php
-namespace App\Logger;
+namespace logger;
 
 use database\Database;
 use logger\driver\{
