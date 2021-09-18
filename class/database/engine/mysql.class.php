@@ -48,7 +48,7 @@ class mysql extends \PDO implements DriverI
 
     public function findAll(string $table, array $values): mixed
     {
-        $whereSerialize = $this->serialize($values,'set');
+        $whereSerialize = $this->serialize($values,'where');
 
         $query = "SELECT * FROM $table WHERE $whereSerialize";
 
@@ -122,7 +122,14 @@ class mysql extends \PDO implements DriverI
         {
             if ($propertiesCounter > 1)
             {
-                $result .= ",";
+                if ($type == 'where')
+                {
+                    $result .= " and ";
+                }
+                else
+                {
+                    $result .= ",";
+                }
             }
 
             if ($type == 'value')
@@ -133,7 +140,7 @@ class mysql extends \PDO implements DriverI
             {
                 $result .= $column;
             }
-            elseif ($type == 'set')
+            elseif ($type == 'set' || $type == 'where')
             {
                 $result .= "$column=:$column";
             }
