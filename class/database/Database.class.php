@@ -1,13 +1,15 @@
 <?php  
-namespace database;
-use database\engine\DriverI;
-use database\engine\mysql;
+namespace database; // database namespace tanımlaması
+use database\engine\DriverI; // database\engine\DriverI 'ı kullan
+use database\engine\mysql; // database\engine\mysql 'i kullan
 
-class Database implements DriverI {
-	public $config;
-	public $db;
-	public $engine;
-	public function __construct(){
+class Database implements DriverI // Database sınıfı oluştur ve DriverI'ı implement'e et
+{
+	public function __construct(
+        public $config,
+        public $db,
+        public $engine
+    ){
 		// Config
 		$configdir = (__DIR__)."/../../config.php";
 		if(file_exists($configdir)){
