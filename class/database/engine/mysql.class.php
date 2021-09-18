@@ -9,7 +9,7 @@ class mysql extends \PDO implements DriverI
         private string  $host ="localhost",
         private string  $user="root",
         private string  $pass="",
-        private string  $dbname="test"
+        private string  $dbname="hafta"
     ){
 
         $this->PDO = new \PDO("mysql:host=$this->host;dbname=$this->dbname",$this->user,$this->pass);
