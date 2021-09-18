@@ -18,13 +18,13 @@ class Post
         return $this->db->delete("post", $id);
     }
 
-    public function updatePost(int $id, array $data)
+    public function updatePost(int $id,$data)
     {
-        return  $this->db->update("post", $id, array($data));
+        return  $this->db->update("post", $id, $data);
     }
 
     public function addPost(array $data)
     {
-        return  $this->db->create("post", array($data));
+        return  $this->db->create("post", $data);
     }
 }

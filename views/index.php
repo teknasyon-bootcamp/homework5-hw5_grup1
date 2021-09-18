@@ -1,10 +1,3 @@
-<?php
-
-include_once '../autoloader.php';
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -48,13 +41,10 @@ include_once '../autoloader.php';
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link text-dark" href="#">Books</a>
+                <a class="nav-link text-dark" href="#">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-dark" href="#">Authors</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link btn btn-info text-dark ms-2" href="#">Add New Book</a>
+                <a class="nav-link btn btn-info text-dark ms-2" href="book-create.php">Add New Book</a>
               </li>
             </ul>
           </div>
@@ -124,137 +114,38 @@ include_once '../autoloader.php';
         <!-- Most Populer Books Section -->
         <section>
           <!-- Title -->
-          <h3 class="text-center">Most Populer Books</h3>
+          <h3 class="text-center">Books List</h3>
           <!-- Title -->
           <!-- Cards -->
           <div class="row my-5">
-            <div class="col-md-3">
-              <div class="card mx-auto" style="width: 13rem">
-                <img src="https://m.media-amazon.com/images/I/91jnWhYzvoL._AC_UY327_QL65_.jpg" class="card-img-top" alt="" style="height: 17rem" />
-                <div class="card-body text-center">
-                  <h5 class="card-title">Book Title</h5>
-                  <p class="card-text">Book's Author</p>
-                  <a href="#" class="btn btn-warning">Details...</a>
+            <?php
+            require ("../autoloader.php");
+            require ("../class/Book.class.php");
+            $books=new Book;
+            $books=$books->bookList();
+            foreach ($books as $book){
+                echo "
+                <div class='col-md-3 mb-5'>
+              <div class='card mx-auto' style='width: 13rem'>
+                <img src='../config/images/$book[image_url]' class='card-img-top' alt='' style='height: 14rem' />
+                <div class='card-body text-center'>
+                  <h5 class='card-title'>$book[name]</h5>
+                  <p class='card-text'>$book[author]</p>
+                  <a href='book.php?id=$book[id]' class='btn btn-warning'>Details...</a>
                 </div>
               </div>
             </div>
-            <div class="col-md-3">
-              <div class="card mx-auto" style="width: 13rem">
-                <img src="https://m.media-amazon.com/images/I/A1JruQJ1t9L._AC_UY327_FMwebp_QL65_.jpg" class="card-img-top" alt="" style="height: 17rem" />
-                <div class="card-body text-center">
-                  <h5 class="card-title">Book Title</h5>
-                  <p class="card-text">Book's Author</p>
-                  <a href="#" class="btn btn-warning">Details...</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card mx-auto" style="width: 13rem">
-                <img src="https://m.media-amazon.com/images/I/81571i9cV-L._AC_UY327_QL65_.jpg" class="card-img-top" alt="" style="height: 17rem" />
-                <div class="card-body text-center">
-                  <h5 class="card-title">Book Title</h5>
-                  <p class="card-text">Book's Author</p>
-                  <a href="#" class="btn btn-warning">Details...</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card mx-auto" style="width: 13rem">
-                <img src="https://m.media-amazon.com/images/I/81gU8YQxlSL._AC_UY327_QL65_.jpg" class="card-img-top" alt="" style="height: 17rem" />
-                <div class="card-body text-center">
-                  <h5 class="card-title">Book Title</h5>
-                  <p class="card-text">Book's Author</p>
-                  <a href="#" class="btn btn-warning">Details...</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row my-5 mx-auto">
-            <div class="col-md-3">
-              <div class="card mx-auto" style="width: 13rem">
-                <img src="https://m.media-amazon.com/images/I/716QjcUuBWL._AC_UY327_QL65_.jpg" class="card-img-top" alt="" style="height: 18rem" />
-                <div class="card-body text-center">
-                  <h5 class="card-title">Book Title</h5>
-                  <p class="card-text">Book's Author</p>
-                  <a href="#" class="btn btn-warning">Details...</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card mx-auto" style="width: 13rem">
-                <img src="https://m.media-amazon.com/images/I/818Hax2nTXL._AC_UY327_QL65_.jpg" class="card-img-top" alt="" style="height: 18rem" />
-                <div class="card-body text-center">
-                  <h5 class="card-title">Book Title</h5>
-                  <p class="card-text">Book's Author</p>
-                  <a href="#" class="btn btn-warning">Details...</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card mx-auto" style="width: 13rem">
-                <img src="https://m.media-amazon.com/images/I/71wIX869Z0S._AC_UY327_QL65_.jpg" class="card-img-top" alt="" style="height: 18rem" />
-                <div class="card-body text-center">
-                  <h5 class="card-title">Book Title</h5>
-                  <p class="card-text">Book's Author</p>
-                  <a href="#" class="btn btn-warning">Details...</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card mx-auto" style="width: 13rem">
-                <img src="https://m.media-amazon.com/images/I/912TysDj8cL._AC_UY327_QL65_.jpg" class="card-img-top" alt="" style="height: 18rem" />
-                <div class="card-body text-center">
-                  <h5 class="card-title">Book Title</h5>
-                  <p class="card-text">Book's Author</p>
-                  <a href="#" class="btn btn-warning">Details...</a>
-                </div>
-              </div>
-            </div>
+                ";
+            }
+            ?>
+
+
           </div>
           <!-- Cards -->
         </section>
         <!-- Most Populer Books Section -->
-        <!-- Pagination -->
-        <nav class="mb-5" aria-label="Page navigation example">
-          <ul class="pagination justify-content-center text-dark">
-            <li class="page-item">
-              <a class="page-link text-dark">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
-            <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
-            <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link text-dark" href="#">Next</a>
-            </li>
-          </ul>
-        </nav>
-        <!-- Pagination -->
+
       </main>
     </div>
-    <!-- Footer -->
-    <footer class="py-3 mt-4 border-top bg-warning">
-      <div class="container d-flex flex-wrap justify-content-between align-items-center">
-          <p class="col-md-4 mb-0 text-muted ">© 2021 HW5-Group1</p>
-            <div class="justify-content-center">
-              <a href="#" class="col-md-4 link-dark text-decoration-none"
-            ><img
-              src="https://scontent.fsof10-1.fna.fbcdn.net/v/t1.18169-9/22853144_321854368280724_921982228724781455_n.png?_nc_cat=111&ccb=1-5&_nc_sid=174925&_nc_ohc=uxiBkjhiXJ8AX__96X0&_nc_ht=scontent.fsof10-1.fna&oh=0dfcb8ee3e647bc65838d5ec98c93992&oe=6166FE4A"
-              alt=""
-              width="30"
-              height="32"
-          /></a>
-          </div>
-        <ul class="nav col-md-4 justify-content-end">
-          <li class="nav-item"><a href="#" class="nav-link text-dark px-2 text-muted">Books</a></li>
-          <li class="nav-item"><a href="#" class="nav-link text-dark px-2 text-muted">Authors</a></li>
-        </ul>
-      </div>  
-    </footer>
-    <!-- Footer -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-      crossorigin="anonymous"
-    ></script>
-  </body>
-</html>
+
+<?php include ("footer.php"); ?>
