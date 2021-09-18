@@ -21,14 +21,14 @@ class Book
     }
 
     //kitap güncelleme fonksiyonu 
-    public function updateBook(int $id, array $data) // field bir array  içinde book sütünları var
+    public function updateBook(int $id, array $data) 
     {
         return  $this->db->update("book", $id, array($data));
     }
 
     //kitap ekleme fonksiyonu
     public function addBook(array $data)
-    {   // field bir array  içinde book sütünları var
+    {  
         return  $this->db->create("book", $data);
     }
 }
