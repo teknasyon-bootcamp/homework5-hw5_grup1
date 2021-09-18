@@ -1,5 +1,11 @@
 <?php
 require_once '../autoloader.php';
+
+$transfer = new Transfer();
+
+if (isset($_POST['export'])) {
+    $transfer->export();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,12 +26,6 @@ require_once '../autoloader.php';
     <div class="container">
         <div class="m-3 text-center">
             <?php
-            $transfer = new Transfer();
-
-            if (isset($_POST['export'])) {
-                $transfer->export();
-            }
-
             if (isset($_POST['import'])) {
                 $transfer->import($_FILES["file"]);
             }
