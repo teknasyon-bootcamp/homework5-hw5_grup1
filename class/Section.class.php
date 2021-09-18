@@ -7,9 +7,10 @@ class Section
     {
         $this->db = new database\Database();
     }
-    public function  BookFind(int $id)
+    public function FindAll(array $data)
     {
-        return $this->db->find("book",$id);
+        //return $this->db->find("book",$id);
+        return $this->db->findAll("section",$data);
     }
     public function  SectionFind(int $id)
     {

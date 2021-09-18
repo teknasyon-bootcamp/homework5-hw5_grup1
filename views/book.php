@@ -132,8 +132,10 @@
 
                 <?php
                     require ("../class/Section.class.php");
-                    $section=new Section();
-                    $section=$section->sectionList();
+                    $section=new Section;
+                    $array=["book_id"];
+                    $section=$section->FindAll(["book_id"=>$book_id]);
+                    var_dump($section["name"]);
                 ?>
                 <h5 class="card-title">Section Name
                     <button type="button" class="btn btn-success">Section Edit</button>
