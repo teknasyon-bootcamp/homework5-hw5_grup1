@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 18, 2021 at 08:36 AM
+-- Generation Time: Sep 18, 2021 at 03:34 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -63,8 +63,6 @@ CREATE TABLE `logs` (
 
 INSERT INTO `logs` (`id`, `message`, `level`, `created_at`) VALUES
 (1, 'İlk Loglama işlemi', 100, '0000-00-00 00:00:00'),
-(2, 'İkinci Loglama işlemi', 100, '0000-00-00 00:00:00'),
-(3, 'İkinci Loglama işlemi', 100, '0000-00-00 00:00:00'),
 (4, 'İkinci Loglama işlemi', 100, '2021-09-17 19:10:28'),
 (5, 'Test db', 500, '2021-09-17 21:40:08');
 
@@ -76,6 +74,7 @@ INSERT INTO `logs` (`id`, `message`, `level`, `created_at`) VALUES
 
 CREATE TABLE `post` (
   `id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
   `section_id` int(11) NOT NULL,
   `author` varchar(155) DEFAULT NULL,
   `content` text DEFAULT NULL,
@@ -87,9 +86,9 @@ CREATE TABLE `post` (
 -- Dumping data for table `post`
 --
 
-INSERT INTO `post` (`id`, `section_id`, `author`, `content`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Namık Kemal', 'Üzerimde derin bir intibah bıraktın', '0000-00-00 00:00:00', '2021-09-18 00:00:00'),
-(2, 2, 'Recaizade Mahmut Ekrem', 'Japon arabaları iyidir.', '0000-00-00 00:00:00', '2021-09-18 00:00:00');
+INSERT INTO `post` (`id`, `book_id`, `section_id`, `author`, `content`, `created_at`, `updated_at`) VALUES
+(1, 0, 1, 'Namık Kemal', 'Üzerimde derin bir intibah bıraktın', '0000-00-00 00:00:00', '2021-09-18 00:00:00'),
+(2, 0, 2, 'Recaizade Mahmut Ekrem', 'Japon arabaları iyidir.', '0000-00-00 00:00:00', '2021-09-18 00:00:00');
 
 -- --------------------------------------------------------
 
