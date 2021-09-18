@@ -1,6 +1,6 @@
 <?php
-
 namespace database\engine;
+
 class mysql extends \PDO implements DriverI
 {
     private \PDO $PDO;
@@ -8,8 +8,8 @@ class mysql extends \PDO implements DriverI
     public function __construct(
         private string  $host ="localhost",
         private string  $user="root",
-        private string  $pass=" ",
-        private string  $dbname="hafta"
+        private string  $pass="",
+        private string  $dbname="test"
     ){
 
         $this->PDO = new \PDO("mysql:host=$this->host;dbname=$this->dbname",$this->user,$this->pass);
@@ -18,14 +18,13 @@ class mysql extends \PDO implements DriverI
 
     public function all(string $table): array
     {
-        
         $query = "SELECT * FROM $table";
 
         $statement = $this->PDO->prepare($query);
 
         $statement->execute();
 
-        $result = $statement->fetchAll();
+        $result = $statement->fetchAll(self::FETCH_ASSOC);
 
         return $result;
     }
@@ -133,16 +132,5 @@ class mysql extends \PDO implements DriverI
 
 
 
-   //kitaptaki bölümü var ise listele 
-  public function sectionList()
-  {
-      $statement = $this->PDO->prepare("select * from book b
-      left join section s on s.book_id = b.id
-      where section = 0");
-      $statement->execute();
-      $row = $statement->fetchAll(); // Use fetchAll() if you w
-      if($row != '') return $row;
-      else return ['msg' => 'kitapin bölümü yok'];
-  }
 
 }
