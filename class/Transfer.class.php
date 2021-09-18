@@ -46,18 +46,26 @@ class Transfer
             if (move_uploaded_file($file["tmp_name"], $target))
             {
                 $json_file  = file_get_contents($target);
-                $data = json_decode($json_file,true);
+                $data = json_decode($json_file,true,flags: JSON_BIGINT_AS_STRING);
 
-                var_dump($data['book']);
 
-                echo "<br><br>";
+                foreach ($this->tables as $table_name)
+                {
+                    foreach ($data[$table_name] as $key => $value)
+                    {
+                        if (!$this->db->find($table_name, $value['id']))
+                        {
+                            $result = $this->db->create($table_name, $value);
 
-                foreach ($this->tables as $table_name) {
-                    echo "$table_name<br>";
-                    $result = $this->db->create($table_name,$data[$table_name]);
+                            echo $table_name." : Verileri aktarıldı.<br>";
+                        }
+                        else
+                        {
+                            echo $table_name." : Veriler aktarılmadı<br>";
+                        }
+                    }
                 }
 
-                return $result;
             }
 
             return "İşlem Yapılamadı!";
