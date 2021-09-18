@@ -3,6 +3,8 @@ require_once '../autoloader.php'; // autoloader.php dosyası daha önce çekilme
 
 $transfer = new Transfer(); // Transfer class ile $transfer nesnesini oluştur
 
+\App\Logger\logger::log("Test in Transfer",1);
+
 if (isset($_POST['export'])) // post methodu ile export değeri gönderildiyse
 {
     $transfer->export(); // transfer nesnesindeki export'u çalıştır

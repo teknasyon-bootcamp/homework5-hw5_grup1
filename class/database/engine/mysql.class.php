@@ -46,6 +46,23 @@ class mysql extends \PDO implements DriverI
         return $result;
     }
 
+    public function findAll(string $table, array $values): mixed
+    {
+        $whereSerialize = $this->serialize($values,'set');
+
+        $query = "SELECT * FROM $table WHERE $whereSerialize";
+
+        $statement = $this->PDO->prepare($query);
+
+        foreach ($values as $param => $value) {
+            $statement->bindValue(":$param", $value);
+        }
+
+        $result = $statement->execute();
+
+        return $result;
+    }
+
     public function create(string $table, array $values): bool
     {
         $columnSerialize = $this->serialize($values,'column');
