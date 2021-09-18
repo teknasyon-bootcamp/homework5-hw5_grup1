@@ -46,6 +46,10 @@ class Database implements DriverI {
 	{
 		return $this->db->find($table, $id);
 	}
+	public function findAll(string $table, array $values): mixed
+    {
+        return $this->db->findAll($table, $values);
+    }
     public function create(String $table, array $values): bool
 	{
 		return $this->db->create($table, $values);
