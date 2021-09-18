@@ -58,6 +58,8 @@ class mysql extends \PDO implements DriverI
             $statement->bindValue(":$param", $value);
         }
 
+        $statement->execute();
+
         $result = $statement->fetchAll(self::FETCH_ASSOC);
 
         return $result;
