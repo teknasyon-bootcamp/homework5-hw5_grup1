@@ -1,82 +1,68 @@
 <?php
+namespace database\engine;
 class MongoDB implements DriverI
 {
-    public $db;
-	private $dbname;
-	private $tablename;
-    public function __construct(String $dbname,String $tablename)
-	{
-		$db = new MongoDB\Driver\Manager('mongodb://mongo');
-		$this->db = $db;
-		$this->dbname = $dbname;
-		$this->tablename = $tablename;
+    protected $db;
+    public function __construct(
+        private string $host = "mariadb",
+        private string $user = "root",
+        private string $pass = "root",
+        private string $dbname = "default"
+    ) {
+        $db = new \MongoDB\Driver\Manager("mongodb://mongo");
+        $this->db = $db;
+        $this->dbname = $dbname;
     }
-	public function select(String $dbname,String $tablename):void
-	{
-		$this->dbname = $dbname;
-		$this->tablename = $tablename;
-    } 
-    public function all():array
+    public function all(string $table): array
     {
-		$table = $this->dbname.".".$this->tablename;
-		$sorgu = new MongoDB\Driver\Query([]);
-		$sonuc = $this->db->executeQuery($table, $sorgu)->toArray();
-        return $sonuc;
+        $selectTable = $this->dbname . "." . $table;
+        $query = new \MongoDB\Driver\Query([]);
+        $result = $this->db->executeQuery($selectTable, $query)->toArray();
+        return $result;
     }
-    public function find(Array $select,Array $options):mixed
+    public function find(string $table, mixed $id): mixed
     {
-		$table = $this->dbname.".".$this->tablename;
-		$query = new MongoDB\Driver\Query($select,$options);
-		$sonuc = $this->db->executeQuery($table, $query)->toArray();
-        return $sonuc; 
-	}
-    public function create(Array $data):void
-    {
-		$table = $this->dbname.".".$this->tablename;  
-		$write = new MongoDB\Driver\BulkWrite();
-		$write->insert($data);
-		$this->db->executeBulkWrite($table,$write);
+        $selectTable = $this->dbname . "." . $table;
+        $query = new \MongoDB\Driver\Query(
+            ["_id" => new \MongoDB\BSON\ObjectId($id)],
+            []
+        );
+        $result = $this->db->executeQuery($selectTable, $query)->toArray();
+        return $result;
     }
-	public function update(Array $select,Array $newData):bool
+    public function create(string $table, array $values): bool
     {
-		$table = $this->dbname.".".$this->tablename; 
-		$veri = new MongoDB\Driver\BulkWrite();
-		$veri->update($select, ['$set' => $newData]);
-		$sonuc = $this->db->executeBulkWrite($table, $veri);
-		return $sonuc->getModifiedCount();
+        $selectTable = $this->dbname . "." . $table;
+        $write = new \MongoDB\Driver\BulkWrite();
+        $write->insert($values);
+        $result = $this->db->executeBulkWrite($selectTable, $write);
+        if ($result) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
-	public function delete(Array $select):bool
+    public function update(string $table, mixed $id, array $values): bool
     {
-		$table = $this->dbname.".".$this->tablename; 
-		$veri = new MongoDB\Driver\BulkWrite();
-		$veri->delete($select);
-		$sonuc = $this->db->executeBulkWrite($table, $veri);
-		return $sonuc->getDeletedCount();
+        $selectTable = $this->dbname . "." . $table;
+        $write = new \MongoDB\Driver\BulkWrite();
+        $write->update(
+            ["_id" => new \MongoDB\BSON\ObjectId($id)],
+            ['$set' => $values]
+        );
+        $result = $this->db->executeBulkWrite($selectTable, $veri);
+        if ($result) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    public function delete(string $table, mixed $id): bool
+    {
+        $selectTable = $this->dbname . "." . $table;
+        $veri = new \MongoDB\Driver\BulkWrite();
+        $veri->delete(["_id" => new \MongoDB\BSON\ObjectId($id)]);
+        $result = $this->db->executeBulkWrite($selectTable, $veri);
+        return $result->getDeletedCount();
     }
 }
-/* 
-Örnekler 
-// Bağlantı Kurma
-$Mongo = new MongoDB("default","book");
-// Veri Ekleme
-$Mongo->create(array(
-"id"=>$Mongo->db->counters,
-"name"=>"İğrenç bir hayat",
-"summary"=>"Gerçekten",
-"image_url"=>"./image.png",
-"created_at"=>time(),
-"update_at"=>time()
-)); 
-// Veri Gösterme
-$Result = $Mongo->all();
-print_r($Result);
-// Veri Bulma İşlemi
-$Result = $Mongo->find(["created_at"=>1631741737],[]);
-print_r($Result); 
-// Güncelleme İşlemi
-$Result = $Mongo->update(["created_at"=>1631741737],["name"=>"Güzel bir Hayat"]);
-print_r($Result); 
-// Silme İşlemi
-$Result = $Mongo->delete(["created_at"=>1631741737]);
-print_r($Result); 
-*/
