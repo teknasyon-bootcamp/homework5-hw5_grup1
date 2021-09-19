@@ -6,7 +6,7 @@ if($_GET['id'])
     $book = new Book;
     $book->deleteBook((int)$_GET['id']);
  
-    Header('Location: book-store.php');
+    Header('Location: index.php');
 }
 
 
