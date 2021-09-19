@@ -5,10 +5,11 @@ use database\engine\mysql; // database\engine\mysql 'i kullan
 
 class Database implements DriverI // Database sınıfı oluştur ve DriverI'ı implement'e et
 {
-	public function __construct(
-        public $config,
-        public $db,
-        public $engine
+    public $config;
+    public $db;
+    public $engine;
+	
+    public function __construct(
     ){
 		// Config
 		$configdir = (__DIR__)."/../../config.php";
