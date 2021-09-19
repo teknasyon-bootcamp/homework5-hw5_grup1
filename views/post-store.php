@@ -15,8 +15,8 @@
                 'author' => $author,
                 'content' => $content,
             ];
-            $section=$section->SectionFind($section_id);
-            $book_id=$section["book_id"];
+            $section=$section->FindAll(["id"=>$section_id]);
+            $book_id=$section[0]["book_id"];
         }
         elseif (isset($_GET["book"])){
             $book_id = (int)$_GET['book'];

@@ -9,7 +9,11 @@ class Book
     {
         $this->db = new database\Database();
     }
-    //index.php - Kitap listesi ve her kitap için yazar isimleri yer alıyor mu?
+    //tabloda sütun adına göre sorgu yapılabilecek method
+    public function FindAll(array $data){
+        return $this->db->findAll( "book", $data);
+    }
+    //tablodaki tüm kitapları getiren method
     public function  bookList()
     {
         return $this->db->all("book");

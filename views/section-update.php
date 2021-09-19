@@ -11,7 +11,6 @@ if(isset($_POST['name'])) {
         'name' => $name,
         'updated_at' => time(),
     ];
-    var_dump($fields);
     $section->updateSection($section_id,$fields);
     return header("Location: book.php?id=$book_id");
 }

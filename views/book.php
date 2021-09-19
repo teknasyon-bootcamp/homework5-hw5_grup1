@@ -55,41 +55,46 @@
       <main>
         <!-- Book Info -->
         <section>
-
               <?php
               require ("../autoloader.php");
               require ("../class/Book.class.php");
+                $book = new Book;
               if(isset($_GET["id"])) {
+                  $book_id = (int) $_GET["id"];
                   $book = new Book;
-                  $book_id = (int)$_GET["id"];
-                  $book = $book->BookFind($book_id);
-
+                  $book_id = (int) $_GET["id"];
+                  $book = $book->FindAll(["id"=>$book_id]);
                   if (!$book) {
                       echo "<div class='alert alert-danger mt-5' role='alert'><h4 class='alert-heading'>Error</h4>Book id is wrong!</div>";
                       die();
                   } else {
-                      $createdate = date('d.m.Y h:mA', strtotime($book["created_at"]));
+                      $name=$book[0]["name"];
+                      $author=$book[0]["author"];
+                      $summary=$book[0]["summary"];
+                      $page_count=$book[0]["page_count"];
+                      $image_url=$book[0]["image_url"];
+                      $createdate = date('d.m.Y h:mA', strtotime($book[0]["created_at"]));
                       echo "
-<div class='row my-5 justify-content-center'>
+            <div class='row my-5 justify-content-center'>
               <div class='col-md-6 text-end px-5'>
-                  <img src='../config/images/$book[image_url]' class='img-fluid' alt='' />
+                  <img src='../config/images/$image_url' class='img-fluid' alt='' />
             </div>
             <div class='col-md-6 mt-2 px-5'>
               <div class='book-name'>
                 <h6>Name</h6>
-                <i>$book[name]</i>
+                <i>$name</i>
               </div>
               <div class='author mt-4'>
                 <h6>Author Name</h6>
-                <i>$book[author]</i>
+                <i>$author</i>
               </div>
               <div class='book-info mt-4'>
                 <h6>Summary</h6>
-                <i>$book[summary]</i>
+                <i>$summary</i>
               </div>
               <div class='book-pages mt-4'>
                 <h6>Pages:</h6>
-                <i>$book[page_count]</i>
+                <i>$page_count</i>
               </div>
               <div class='createdAt mt-4'>
                 <h6>Created at:</h6>
@@ -106,8 +111,8 @@
             </div>
             <div class='col-md-6'>
               <div class='addBtn mx-5 p-2'>
-                <a type='button' href='section-create.php?book=$book_id' class='btn btn-info text-light'>Add Text</a>
-                <a type='button' href='post-create.php?book=$book_id' class='btn btn-primary'>Add Section</a>
+                <a type='button' href='section-create.php?book=$book_id' class='btn btn-info text-light'>Add Section</a>
+                <a type='button' href='post-create.php?book=$book_id' class='btn btn-primary'>Add Post</a>
                   ";
                   }
               }
@@ -119,139 +124,90 @@
 
 
               </div>
-            </div>
-          </div>
         </section>
-        <!-- Book Info -->
-        <hr />
         <!-- Book Sections -->
         <div class="row mt-5">
           <div class="col-md-12 px-5">
             <section>
-              <h4 class="text-center">Book Sections:</h4>
-
                 <?php
                     require ("../class/Section.class.php");
-                    $section=new Section;
-                    $array=["book_id"];
-                    $section=$section->FindAll(["book_id"=>$book_id]);
-                    var_dump($section["name"]);
+                    require ("../class/Post.class.php");
+                    $sections=new Section;
+                    $book_id = (int)$_GET["id"];
+                    $sections=$sections->FindAll(['book_id'=>$book_id]);
+
+                    if ($sections){
+                        echo "<hr><h4 class='text-center'>Book Sections:</h4>";
+                        foreach ($sections as $section){
+                            $section_id=$section["id"];
+                            $section_name=$section["name"];
+                            echo "<hr>
+                            <h5 class='card-title'>$section_name
+                            <a type='button' class='btn btn-success btn-sm' href='section-edit.php?section=$section_id'>Section Edit</a>
+                            <a type='button' class='btn btn-danger btn-sm' href='section-delete.php?section=$section_id'>Section Delete</a>
+                            <a type='button' class='btn btn-info btn-sm' href='post-create.php?section=$section_id'>Add Post</a>
+                            </h5><hr>";
+
+                            $posts=new Post;
+                            $posts=$posts->FindAll(['section_id'=>$section_id]);
+                            if ($posts){
+                                foreach ($posts as $post) {
+                                    $post_id=$post["id"];
+                                    $post_author=$post["author"];
+                                    $post_content=$post["content"];
+                                    $post_created_at=$post["created_at"];
+                                    $post_updated_at=$post["updated_at"];
+                                    //$post_updated_at=(date('Y-m-d\TH:i:sP')-$post_updated_at)/86400;
+
+                                    echo "
+                                    <div class='card-text mt-2' style='border:1px solid gray ; border-radius:10px; padding: 15px;'>
+                                        <p class='card-text'><b>Author:</b> <i>$post_author</i>,<b>Create date:</b> <i>$post_created_at</i>";
+                                            if (((int) $post_updated_at)!=0){ echo ",<b>Update date:</b> <i>$post_updated_at</i></p>";}
+                                            echo "
+                                            </p><span>$post_content</span>
+                                            <p class='mt-3'>
+                                                <a type='button' class='btn btn-success btn-sm' href='post-edit.php?post=$post_id'>Post Edit</a>
+                                                <a type='button' class='btn btn-danger btn-sm' href='post-delete.php?post=$post_id'>Post Delete</a>
+                                            </p>
+                                        </div>";
+                                }
+                            }
+                        }
+                    }
+
+                        $posts = new Post;
+                        $posts = $posts->FindAll(['book_id' => (int)$_GET["id"]]);
+                        if ($posts) {
+                            foreach ($posts as $post) {
+                                $post_id = $post["id"];
+                                $post_author = $post["author"];
+                                $post_content = $post["content"];
+                                $post_created_at = $post["created_at"];
+                                $post_updated_at = $post["updated_at"];
+                                //$post_updated_at=(date('Y-m-d\TH:i:sP')-$post_updated_at)/86400;
+
+                                echo "
+                                    <hr>
+                                    <div class='card-text' style='border:1px solid gray ; border-radius:10px; padding: 15px;'>
+                                        <p class='card-text'><b>Author:</b> <i>$post_author</i>,<b>Create date:</b> <i>$post_created_at</i>";
+                                if (((int)$post_updated_at) != 0) {
+                                    echo ",<b>Update date:</b> <i>$post_updated_at</i></p>";
+                                }
+                                echo "
+                                            </p><span>$post_content</span>
+                                            <p class='mt-3'>
+                                                <a type='button' class='btn btn-success btn-sm' href='post-edit.php?post=$post_id'>Post Edit</a>
+                                                <a type='button' class='btn btn-danger btn-sm' href='post-delete.php?post=$post_id&book=$book_id'>Post Delete</a>
+                                            </p>
+                                        </div>";
+                            }
+                        }
                 ?>
-                <h5 class="card-title">Section Name
-                    <button type="button" class="btn btn-success">Section Edit</button>
-                    <button type="button" class="btn btn-danger">Section Delete</button>
-                    <button type="button" class="btn btn-info">Add Post</button>
-                </h5>
 
-                <hr>
-                <div class="card-text" style="border:1px solid gray ; border-radius:10px; padding: 15px;">
-                    <p class="card-text"><strong>Post Info:</strong>Author,Created at</p>
-                    <span>Lorem ipsum doitecto, quos.</span>
-                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, quisquam!</span>                   </span>
-                    <p class="mt-3">
-                        <button type="button" class="btn btn-success">Post Edit</button>
-                        <button type="button" class="btn btn-danger">Post Delete</button>
-                    </p>
-                </div>
-
-
-                <hr>
-
-              <div class="card text-center mt-5">
-                <div class="card-header bg-secondary text-light">ID</div>
-                <div class="card-body">
-
-                  <div class="btns mt-5">
-                    <button type="button" class="btn btn-success">Edit</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
-                  </div>
-                  <div class="addText mt-3">
-                    <button type="button" class="btn btn-info text-light">Add Text</button>
-                  </div>
-                </div>
-                <div class="card-footer text-light bg-secondary">Created at: 2 days ago</div>
-              </div>
-              <div class="card text-center mt-5">
-                <div class="card-header bg-secondary text-light">ID</div>
-                <div class="card-body">
-                  <h5 class="card-title">Section Name</h5>
-                  <p class="card-text">Section Content (Post)</p>
-                  <div class="btns mt-5">
-                    <button type="button" class="btn btn-success">Edit</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
-                  </div>
-                  <div class="addText mt-3">
-                    <button type="button" class="btn btn-info text-light">Add Text</button>
-                  </div>
-                </div>
-                <div class="card-footer text-light bg-secondary">Created at: 4 days ago</div>
-              </div>
-              <div class="card text-center mt-5">
-                <div class="card-header bg-secondary text-light">ID</div>
-                <div class="card-body">
-                  <h5 class="card-title">Section Name</h5>
-                  <p class="card-text">Section Content (Post)</p>
-                  <div class="btns mt-5">
-                    <button type="button" class="btn btn-success">Edit</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
-                  </div>
-                  <div class="addText mt-3">
-                    <button type="button" class="btn btn-info text-light">Add Text</button>
-                  </div>
-                </div>
-                <div class="card-footer text-light bg-secondary">Created at: 7 days ago</div>
-              </div>
-            </section>
-            <!-- Book Sections -->
-          </div>
-          <!-- Posts Sections-->
-          <div class="col-md-6 px-5 border-start border-secondary">
-            <section>
-              <h4 class="text-center">Book Posts:</h4>
-              <div class="card text-center mt-5">
-                <div class="card-header bg-secondary text-light">ID</div>
-                <div class="card-body">
-                  <h5 class="card-title">Post Author</h5>
-                  <p class="card-text">Post Content</p>
-                  <p class="card-text">From Section: (Section Name)</p>
-                  <div class="btns mt-5">
-                    <button type="button" class="btn btn-success">Edit</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
-                  </div>
-                </div>
-                <div class="card-footer text-light bg-secondary">Created at: 2 days ago</div>
-              </div>
-              <div class="card text-center mt-5">
-                <div class="card-header bg-secondary text-light">ID</div>
-                <div class="card-body">
-                  <h5 class="card-title">Post Author</h5>
-                  <p class="card-text">Post Content</p>
-                  <p class="card-text">From Section: (Section Name)</p>
-                  <div class="btns mt-5">
-                    <button type="button" class="btn btn-success">Edit</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
-                  </div>
-                </div>
-                <div class="card-footer text-light bg-secondary">Created at: 4 days ago</div>
-              </div>
-              <div class="card text-center mt-5">
-                <div class="card-header bg-secondary text-light">ID</div>
-                <div class="card-body">
-                  <h5 class="card-title">Post Author</h5>
-                  <p class="card-text">Post content</p>
-                  <p class="card-text">From Section: (Section Name)</p>
-                  <div class="btns mt-5">
-                    <button type="button" class="btn btn-success">Edit</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
-                  </div>
-                </div>
-                <div class="card-footer text-light bg-secondary">Created at: 7 days ago</div>
               </div>
             </section>
             <!-- Posts Sections-->
           </div>
-        </div>
-      </main>
-    </div>
+      </div>
 
 <?php include ("footer.php"); ?>

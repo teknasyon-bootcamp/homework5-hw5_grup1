@@ -11,26 +11,29 @@
         <?php
         if(isset($_GET["book"])){
             require_once '../autoloader.php';
-            require_once('../class/Section.class.php');
-            $book = new Section;
-            $book=$book->BookFind($_GET["book"]);
+            require_once('../class/Book.class.php');
+            $book = new Book;
+            $book=$book->FindAll(["id"=>(int) $_GET["book"]]);
             if ($book==false){
                 echo  "<div class='alert alert-danger' role='alert'><h4 class='alert-heading'>Error</h4>Book id is wrong!</div>";
                 die;
             }
             else{
-                $createdate=date('d.m.Y h:mA', strtotime($book['created_at']));
+                $book_name=$book[0]["name"];
+                $book_author=$book[0]["author"];
+                $book_image_url=$book[0]["image_url"];
+                $createdate=date('d.m.Y h:mA', strtotime($book[0]['created_at']));
                 echo "
                     <div class='container'>
                         <div class='card mb-12''>
                           <div class='row g-0'>
                             <div class='col-md-2'>
-                              <img src='../config/images/$book[image_url]'  class='img-fluid rounded-start' alt='Book Image'>
+                              <img src='../config/images/$book_image_url'  class='img-fluid rounded-start' alt='Book Image'>
                             </div>
                             <div class='col-md-10'>
                               <div class='card-body'>
-                                <h5 class='card-title'>$book[name]</h5>
-                                <p class='card-text'>Author: $book[author]</p>
+                                <h5 class='card-title'>$book_name</h5>
+                                <p class='card-text'>Author: $book_author</p>
                                 <p class='card-text'><small class='text-muted'>Created at $createdate</small></p>
                               </div>
                             </div>

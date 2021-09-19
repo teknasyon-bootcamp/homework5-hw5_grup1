@@ -17,7 +17,7 @@
       <!-- Header -->
       <nav class="navbar navbar-expand-lg navbar-warning bg-warning mb-5">
         <div class="container">
-          <a class="navbar-brand text-light" href="#">
+          <a class="navbar-brand text-light" href="index.php">
             <img
               src="https://scontent.fsof10-1.fna.fbcdn.net/v/t1.18169-9/22853144_321854368280724_921982228724781455_n.png?_nc_cat=111&ccb=1-5&_nc_sid=174925&_nc_ohc=uxiBkjhiXJ8AX__96X0&_nc_ht=scontent.fsof10-1.fna&oh=0dfcb8ee3e647bc65838d5ec98c93992&oe=6166FE4A"
               alt=""
@@ -41,7 +41,7 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link text-dark" href="#">Home</a>
+                <a class="nav-link text-dark" href="index.php">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link btn btn-info text-dark ms-2" href="book-create.php">Add New Book</a>
@@ -54,8 +54,9 @@
     <div class="container bg-light">
       <main>
         <!-- Carousel & Banners -->
-        <div class="row">
-          <!-- Carousel -->
+          <!-- Carousel
+          <div class="row">
+
           <div class="col-md-8 mb-5">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
               <div class="carousel-indicators">
@@ -97,8 +98,8 @@
               </button>
             </div>
           </div>
-          <!-- Carousel -->
-          <!-- Banners -->
+          <!-- Carousel
+          <!-- Banners
           <div class="col-md-4 mt-4">
             <div class="row col-md-12">
               <img src="https://images-na.ssl-images-amazon.com/images/G/01/kindle/Content_Grid2_750x375.jpg" class="img-fluid" alt="" />
@@ -107,11 +108,9 @@
               <img src="https://images-na.ssl-images-amazon.com/images/G/01/kindle/Content_Grid2_750x375-2.jpg" class="img-fluid" alt="" />
             </div>
           </div>
-          <!-- Banners -->
-        </div>
-        <!-- Carousel & Banners -->
-        <hr>
-        <!-- Most Populer Books Section -->
+          <!-- Banners
+        </div>-->
+        <!-- Books List -->
         <section>
           <!-- Title -->
           <h3 class="text-center">Books List</h3>
@@ -127,7 +126,7 @@
                 echo "
                 <div class='col-md-3 mb-5'>
               <div class='card mx-auto' style='width: 13rem'>
-                <img src='../config/images/$book[image_url]' class='card-img-top' alt='' style='height: 14rem' />
+                <img src='../config/images/$book[image_url]' class='card-img-top mt-1' alt='' style='height: 14rem' />
                 <div class='card-body text-center'>
                   <h5 class='card-title'>$book[name]</h5>
                   <p class='card-text'>$book[author]</p>
