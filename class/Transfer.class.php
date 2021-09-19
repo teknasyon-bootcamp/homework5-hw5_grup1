@@ -1,5 +1,6 @@
 <?php
 use database\Database; // database içerisindeki Database'i kullan
+use logger\logger;
 
 class Transfer // Transfer class başlangıcı
 {
@@ -42,7 +43,7 @@ class Transfer // Transfer class başlangıcı
         {
             $result = "Dosya seçilmedi!";
             echo $result;
-            \App\Logger\logger::log("Import sırasında : $result",0); // hatayı logla
+            logger::log("Import sırasında : $result",0); // hatayı logla
         }
         else // değilse
         {
@@ -66,7 +67,7 @@ class Transfer // Transfer class başlangıcı
                         {
                             $result = $table_name." : Veriler aktarılmadı<br>"; // table_name ve veri aktarılmadığını result'a ata
                             echo $result; // result değerini ekrana yazdır
-                            \App\Logger\logger::log("Import sırasında : $result",0); // hatayı logla
+                            logger::log("Import sırasında : $result",0); // hatayı logla
                         }
                     }
                 }
