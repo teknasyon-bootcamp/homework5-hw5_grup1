@@ -26,7 +26,11 @@ class Database implements DriverI // Database sınıfı oluştur ve DriverI'ı i
 			$this->config["password"]
 			);
 			}elseif($this->engine == "mongodb"){
-			$db = new engine\mongodb();
+			$db = new engine\mongodb(
+			$this->config["host"],
+			$this->config["user"],
+			$this->config["password"]
+			);
 
 			}
 
