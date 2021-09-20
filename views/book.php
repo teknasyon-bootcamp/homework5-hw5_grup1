@@ -98,7 +98,7 @@
                       echo "
             <div class='row my-5 justify-content-center'>
               <div class='col-md-6 text-end px-5'>
-                  <img src='../config/images/$image_url' class='img-fluid' alt='' />
+                  <img src='$image_url' class='img-fluid' alt='' />
             </div>
             <div class='col-md-6 mt-2 px-5'>
               <div class='book-name'>
@@ -152,7 +152,7 @@
             <section>
                 <?php
                     $sections=new Section;
-                    $book_id = (int)$_GET["id"];
+                    $book_id = $_GET["id"];
                     $sections=$sections->FindAll(['book_id'=>$book_id]);
 
                     if ($sections){
@@ -195,7 +195,7 @@
                     }
 
                         $posts = new Post;
-                        $posts = $posts->FindAll(['book_id' => (int)$_GET["id"]]);
+                        $posts = $posts->FindAll(['book_id' => $_GET["id"]]);
                         if ($posts) {
                             foreach ($posts as $post) {
                                 $post_id = $post["id"];
@@ -209,7 +209,7 @@
                                     <hr>
                                     <div class='card-text' style='border:1px solid gray ; border-radius:10px; padding: 15px;'>
                                         <p class='card-text'><b>Author:</b> <i>$post_author</i>,<b>Create date:</b> <i>$post_created_at</i>";
-                                if (((int)$post_updated_at) != 0) {
+                                if (($post_updated_at) != 0) {
                                     echo ",<b>Update date:</b> <i>$post_updated_at</i></p>";
                                 }
                                 echo "

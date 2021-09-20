@@ -9,7 +9,7 @@
         $author=(string) $_POST["author"];
         $content=(string) $_POST["content"];
         if (isset($_GET["section"])){
-            $section_id = (int)$_GET['section'];
+            $section_id = $_GET['section'];
             $fields = [
                 'section_id'=>$section_id,
                 'author' => $author,
@@ -19,7 +19,7 @@
             $book_id=$section[0]["book_id"];
         }
         elseif (isset($_GET["book"])){
-            $book_id = (int)$_GET['book'];
+            $book_id = $_GET['book'];
             $fields = [
                 'book_id'=>$book_id,
                 'author' => $author,

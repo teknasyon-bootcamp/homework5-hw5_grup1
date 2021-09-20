@@ -28,7 +28,7 @@
                         <div class='card mb-12''>
                           <div class='row g-0'>
                             <div class='col-md-2'>
-                              <img src='../config/images/$book_image_url'  class='img-fluid rounded-start' alt='Book Image'>
+                              <img src='$book_image_url'  class='img-fluid rounded-start' alt='Book Image'>
                             </div>
                             <div class='col-md-10'>
                               <div class='card-body'>

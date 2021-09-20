@@ -153,7 +153,7 @@
                 echo "
                 <div class='col-md-3 mb-5'>
               <div class='card mx-auto' style='width: 13rem'>
-                <img src='../config/images/$book[image_url]' class='card-img-top mt-1' alt='' style='height: 14rem' />
+                <img src='$book[image_url]' class='card-img-top mt-1' alt='' style='height: 14rem' />
                 <div class='card-body text-center'>
                   <h5 class='card-title'>$book[name]</h5>
                   <p class='card-text'>$book[author]</p>

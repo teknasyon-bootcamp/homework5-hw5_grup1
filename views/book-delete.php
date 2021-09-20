@@ -4,7 +4,7 @@ require_once('../class/Book.class.php');
 if($_GET['id'])
 {
     $book = new Book;
-    $book->deleteBook((int)$_GET['id']);
+    $book->deleteBook($_GET['id']);
  
     Header('Location: index.php');
 }
