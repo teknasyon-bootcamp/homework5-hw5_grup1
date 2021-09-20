@@ -1,6 +1,7 @@
 <?php
 require_once '../autoloader.php';
 $post = new Post;
+$section = new Section;
 
 if(isset($_POST['content'])) {
     $post_id=$_GET['post'];
