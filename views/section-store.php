@@ -1,6 +1,5 @@
 <?php
 require_once '../autoloader.php';
-require_once('../class/Section.class.php');
 $section = new Section;
 
 if(isset($_POST['name'])) {

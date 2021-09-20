@@ -23,4 +23,3 @@ if (isset($_POST['add'])) {
     $r = 'New Book Added .';
     Header('Location: index.php');
 }
-?>

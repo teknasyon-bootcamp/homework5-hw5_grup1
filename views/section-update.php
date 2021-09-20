@@ -9,7 +9,6 @@ if(isset($_POST['name'])) {
     $book_id=(int) $_POST['book_id'];
     $fields = [
         'name' => $name,
-        'updated_at' => time(),
     ];
     $section->updateSection($section_id,$fields);
     return header("Location: book.php?id=$book_id");

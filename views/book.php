@@ -11,6 +11,28 @@
       integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
       crossorigin="anonymous"
     />
+      <style type="text/css">
+          body {
+              height: 100%;
+              margin: 0;
+          }
+          html {
+              padding-bottom: 50px;
+              min-height: 100%;
+              box-sizing: border-box;
+              -moz-box-sizing: border-box;
+              position: relative;
+          }
+
+          footer {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              height: 73px;
+              background-color: red;
+          }
+      </style>
     <title>Book Page</title>
   </head>
   <body class="bg-light">
@@ -57,7 +79,6 @@
         <section>
               <?php
               require ("../autoloader.php");
-              require ("../class/Book.class.php");
                 $book = new Book;
               if(isset($_GET["id"])) {
                   $book_id = (int) $_GET["id"];
@@ -130,8 +151,6 @@
           <div class="col-md-12 px-5">
             <section>
                 <?php
-                    require ("../class/Section.class.php");
-                    require ("../class/Post.class.php");
                     $sections=new Section;
                     $book_id = (int)$_GET["id"];
                     $sections=$sections->FindAll(['book_id'=>$book_id]);
@@ -197,7 +216,7 @@
                                             </p><span>$post_content</span>
                                             <p class='mt-3'>
                                                 <a type='button' class='btn btn-success btn-sm' href='post-edit.php?post=$post_id'>Post Edit</a>
-                                                <a type='button' class='btn btn-danger btn-sm' href='post-delete.php?post=$post_id&book=$book_id'>Post Delete</a>
+                                                <a type='button' class='btn btn-danger btn-sm' href='post-delete.php?post=$post_id'>Post Delete</a>
                                             </p>
                                         </div>";
                             }
