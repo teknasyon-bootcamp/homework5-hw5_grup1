@@ -4,7 +4,7 @@ $post=new Post;
 $section=new Section;
 
 if (isset($_GET["post"])){
-    $post_id=(int) $_GET["post"];
+    $post_id=$_GET["post"];
 
     $post=$post->FindAll(["id"=>$post_id]);
 

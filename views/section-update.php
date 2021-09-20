@@ -4,9 +4,9 @@ require_once('../class/Section.class.php');
 $section = new Section;
 
 if(isset($_POST['name'])) {
-    $section_id=(int) $_GET['section'];
+    $section_id=$_GET['section'];
     $name=(string) $_POST['name'];
-    $book_id=(int) $_POST['book_id'];
+    $book_id=$_POST['book_id'];
     $fields = [
         'name' => $name,
     ];

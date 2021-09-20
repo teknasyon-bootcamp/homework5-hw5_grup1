@@ -15,11 +15,11 @@
             }
             else{
                 if (isset($_GET["section"])){
-                    $section_id=(int) $_GET["section"];
+                    $section_id=$_GET["section"];
                     echo "<form id='createPostForm' class='d-grid gap-2 col-6 mx-auto my-5' action='post-store.php?section=$section_id' method='post'>";
                 }
                 elseif(isset($_GET["book"])){
-                    $book_id=(int) $_GET["book"];
+                    $book_id=$_GET["book"];
                     echo "<form id='createPostForm' class='d-grid gap-2 col-6 mx-auto my-5' action='post-store.php?book=$book_id' method='post'>";
                 }
             }

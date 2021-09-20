@@ -18,12 +18,12 @@ class Section
         return $this->db->all("section");
     }
     //id ye göre section tablosundan ilgili section silen method
-    public function deleteSection(int $id)
+    public function deleteSection(mixed $id)
     {
         return $this->db->delete("section", $id);
     }
     //id ve array data ya göre section tablosundan ilgili sectiona güncelleme işlemi yapan method
-    public function updateSection(int $id, array $data)
+    public function updateSection(mixed $id, array $data)
     {
         return  $this->db->update("section", $id, $data);
     }

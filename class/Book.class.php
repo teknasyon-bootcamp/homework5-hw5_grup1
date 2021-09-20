@@ -19,13 +19,13 @@ class Book
         return $this->db->all("book");
     }
     //kitap silme fonksiyonu
-    public function deleteBook(int $id)
+    public function deleteBook(mixed $id)
     {
         return $this->db->delete("book", $id);
     }
 
     //kitap güncelleme fonksiyonu 
-    public function updateBook(int $id, array $data) 
+    public function updateBook(mixed $id, array $data) 
     {
         return  $this->db->update("book", $id, $data);
     }

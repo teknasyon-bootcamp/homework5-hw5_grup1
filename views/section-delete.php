@@ -5,7 +5,7 @@ $book = new Book;
 $posts = new Post;
 
 if(isset($_GET['section'])) {
-    $section_id=(int) $_GET['section'];
+    $section_id=$_GET['section'];
     $section=$section->FindAll(["id"=>$section_id]);
     $book_id=$section[0]["book_id"];
     if($book!=false){

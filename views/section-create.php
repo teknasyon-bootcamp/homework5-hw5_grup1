@@ -13,7 +13,7 @@
             require_once '../autoloader.php';
             require_once('../class/Book.class.php');
             $book = new Book;
-            $book=$book->FindAll(["id"=>(int) $_GET["book"]]);
+            $book=$book->FindAll(["id"=>$_GET["book"]]);
             if ($book==false){
                 echo  "<div class='alert alert-danger' role='alert'><h4 class='alert-heading'>Error</h4>Book id is wrong!</div>";
                 die;

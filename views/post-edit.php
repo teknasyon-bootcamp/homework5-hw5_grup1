@@ -14,12 +14,12 @@
                 $post=new Post;
                 $book=new Book;
                 $section=new Section;
-                $post=$post->FindAll(["id"=>(int) $_GET["post"]]);
+                $post=$post->FindAll(["id"=>$_GET["post"]]);
                 if (!$post){
                     echo  "<div class='alert alert-danger' role='alert'><h4 class='alert-heading'>Error</h4>Post/Book id is wrong!</div>";
                     die;
                 }
-                $post_id=(int) $_GET["post"];
+                $post_id=$_GET["post"];
             }
             ?>
           <form id="createPostForm" class="d-grid gap-2 col-6 mx-auto my-5" action="post-update.php?post=<?php echo $post_id; ?>" method="post">

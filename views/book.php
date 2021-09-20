@@ -81,9 +81,9 @@
               require ("../autoloader.php");
                 $book = new Book;
               if(isset($_GET["id"])) {
-                  $book_id = (int) $_GET["id"];
+                  $book_id = $_GET["id"];
                   $book = new Book;
-                  $book_id = (int) $_GET["id"];
+                  $book_id = $_GET["id"];
                   $book = $book->FindAll(["id"=>$book_id]);
                   if (!$book) {
                       echo "<div class='alert alert-danger mt-5' role='alert'><h4 class='alert-heading'>Error</h4>Book id is wrong!</div>";
@@ -181,7 +181,7 @@
                                     echo "
                                     <div class='card-text mt-2' style='border:1px solid gray ; border-radius:10px; padding: 15px;'>
                                         <p class='card-text'><b>Author:</b> <i>$post_author</i>,<b>Create date:</b> <i>$post_created_at</i>";
-                                            if (((int) $post_updated_at)!=0){ echo ",<b>Update date:</b> <i>$post_updated_at</i></p>";}
+                                            if (($post_updated_at)!=0){ echo ",<b>Update date:</b> <i>$post_updated_at</i></p>";}
                                             echo "
                                             </p><span>$post_content</span>
                                             <p class='mt-3'>

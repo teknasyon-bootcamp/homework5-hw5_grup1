@@ -18,12 +18,12 @@ class Post
         return $this->db->all("post");
     }
     //id ye göre post tablosundan ilgili postu silen method
-    public function deletePost(int $id)
+    public function deletePost(mixed $id)
     {
         return $this->db->delete("post", $id);
     }
     //id ve array data ya göre post tablosundan ilgili posta güncelleme işlemi yapan method
-    public function updatePost(int $id,$data)
+    public function updatePost(mixed $id,$data)
     {
         return  $this->db->update("post", $id, $data);
     }

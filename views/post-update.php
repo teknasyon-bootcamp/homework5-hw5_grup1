@@ -3,7 +3,7 @@ require_once '../autoloader.php';
 $post = new Post;
 
 if(isset($_POST['content'])) {
-    $post_id=(int) $_GET['post'];
+    $post_id=$_GET['post'];
     $author=(string) $_POST['author'];
     $content=(string) $_POST['content'];
     $post=$post->FindAll(["id"=>$post_id]);

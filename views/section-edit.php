@@ -14,7 +14,7 @@
             require_once('../class/Section.class.php');
             $book = new Book;
             $section=new Section;
-            $section_id=(int) $_GET['section'];
+            $section_id=$_GET['section'];
             $section=$section->FindAll(["id"=>$section_id]);
             $section_name=$section[0]["name"];
             if ($section==false){
