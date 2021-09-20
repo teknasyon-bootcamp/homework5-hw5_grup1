@@ -27,7 +27,7 @@ class Book
     //kitap güncelleme fonksiyonu 
     public function updateBook(int $id, array $data) 
     {
-        return  $this->db->update("book", $id, array($data));
+        return  $this->db->update("book", $id, $data);
     }
 
     //kitap ekleme fonksiyonu
