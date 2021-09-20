@@ -1,8 +1,5 @@
 <?php
 require_once '../autoloader.php';
-require_once('../class/Section.class.php');
-require_once('../class/Book.class.php');
-require_once('../class/Post.class.php');
 $section = new Section;
 $book = new Book;
 $posts = new Post;

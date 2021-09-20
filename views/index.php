@@ -9,8 +9,29 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
-      crossorigin="anonymous"
-    />
+      crossorigin="anonymous"/>
+      <style type="text/css">
+          body {
+              height: 100%;
+              margin: 0;
+          }
+          html {
+              padding-bottom: 50px;
+              min-height: 100%;
+              box-sizing: border-box;
+              -moz-box-sizing: border-box;
+              position: relative;
+          }
+
+          footer {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              height: 73px;
+              background-color: red;
+          }
+      </style>
     <title>Books App</title>
   </head>
   <body class="bg-light">
@@ -119,9 +140,15 @@
           <div class="row my-5">
             <?php
             require ("../autoloader.php");
-            require ("../class/Book.class.php");
             $books=new Book;
             $books=$books->bookList();
+            if (!$books){
+                echo "<div class='alert alert-info' role='alert'>
+                  <h4 class='alert-heading'>Welcome Book Web Page!</h4>
+                  <hr>
+                  <p class='mb-0'>There is no book on the site yet</p>
+                </div>";
+            }
             foreach ($books as $book){
                 echo "
                 <div class='col-md-3 mb-5'>
@@ -131,6 +158,10 @@
                   <h5 class='card-title'>$book[name]</h5>
                   <p class='card-text'>$book[author]</p>
                   <a href='book.php?id=$book[id]' class='btn btn-warning'>Details...</a>
+                  <p class='mt-3'>
+                  <a href='book-edit.php?id=$book[id]' class='btn btn-primary me-3'><i class='bi bi-pencil-square'></i></a>
+                  <a href='book-delete.php?id=$book[id]' class='btn btn-danger'><i class='bi bi-trash'></i></a>
+                  </p>
                 </div>
               </div>
             </div>
@@ -147,4 +178,4 @@
       </main>
     </div>
 
-<?php include ("footer.php"); ?>
+<?php include ('footer.php'); ?>
