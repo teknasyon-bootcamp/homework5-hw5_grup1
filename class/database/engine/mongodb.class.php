@@ -7,7 +7,7 @@ class MongoDB implements DriverI
         private string $host = "mariadb",
         private string $user = "root",
         private string $pass = "root",
-        private string $dbname = "default"
+        private string $dbname = "default4"
     ) {
         $db = new \MongoDB\Driver\Manager("mongodb://mongo");
         $this->db = $db;
@@ -21,7 +21,7 @@ class MongoDB implements DriverI
 		$result->setTypeMap(['root' => 'array', 'document' => 'array', 'array' => 'array']);
 		$result = $result->toArray();
 		foreach($result as $key => $val){
-		$result[$key]["id"] = $val["_id"];
+		$result[$key]["id"] = new \MongoDB\BSON\ObjectId($val["_id"]);
 		}
 		return $result;
     }
@@ -35,10 +35,11 @@ class MongoDB implements DriverI
         $result = $this->db->executeQuery($selectTable, $query);
 		$result->setTypeMap(['root' => 'array', 'document' => 'array', 'array' => 'array']);
 		$result = $result->toArray();
-		if(!empty($result[0])){
-		$result = $result[0];
-        $result["id"] = new \MongoDB\BSON\ObjectId($id);
-		return [0=>$result];
+		if(!empty($result)){
+		foreach($result as $key => $val){ 
+		$result[$key]["id"] = new \MongoDB\BSON\ObjectId($val["_id"]);
+		}
+		return $result;
 		}else{
 		return [];
 		}
@@ -47,13 +48,14 @@ class MongoDB implements DriverI
     {
 		$selectTable = $this->dbname . "." . $table;
 		$multiqueries = [];
-		foreach($values["id"] as $key => $val){
+		 
+		foreach($values as $key => $val){
 		if($key=="id"){
 		$multiqueries["_id"] = new \MongoDB\BSON\ObjectId($val);
 		}else{
-		$multiqueries[$key] = $val;
+		$multiqueries[$key] = (string) $val; 
 		}
-		}
+		}  
         $query = new \MongoDB\Driver\Query(
             $multiqueries,
             []
@@ -62,9 +64,10 @@ class MongoDB implements DriverI
 		$result->setTypeMap(['root' => 'array', 'document' => 'array', 'array' => 'array']);
 		$result = $result->toArray();
 		if(!empty($result[0])){
-		$result = $result[0];
-        $result["id"] = new \MongoDB\BSON\ObjectId($result["_id"]);
-		return [0=>$result];
+		foreach($result as $key => $val){ 
+		$result[$key]["id"] = new \MongoDB\BSON\ObjectId($val["_id"]);
+		}
+		return $result;
 		}else{
 		return [];
 		}
@@ -83,13 +86,16 @@ class MongoDB implements DriverI
     }
     public function update(string $table, mixed $id, array $values): bool
     {
-        $selectTable = $this->dbname . "." . $table;
-        $write = new \MongoDB\Driver\BulkWrite();
+		if(!empty($values[0])){
+		$values = $values[0];
+		}
+        $selectTable = $this->dbname . "." . $table; 
+        $write = new \MongoDB\Driver\BulkWrite(); 
         $write->update(
             ["_id" => new \MongoDB\BSON\ObjectId($id)],
             ['$set' => $values]
         );
-        $result = $this->db->executeBulkWrite($selectTable, $veri);
+        $result = $this->db->executeBulkWrite($selectTable, $write);
         if ($result) {
             return 1;
         } else {
@@ -99,9 +105,9 @@ class MongoDB implements DriverI
     public function delete(string $table, mixed $id): bool
     {
         $selectTable = $this->dbname . "." . $table;
-        $veri = new \MongoDB\Driver\BulkWrite();
-        $veri->delete(["_id" => new \MongoDB\BSON\ObjectId($id)]);
-        $result = $this->db->executeBulkWrite($selectTable, $veri);
+        $write = new \MongoDB\Driver\BulkWrite();
+        $write->delete(["_id" => new \MongoDB\BSON\ObjectId($id)]);
+        $result = $this->db->executeBulkWrite($selectTable, $write);
         if ($result) {
             return 1;
         } else {
