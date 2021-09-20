@@ -35,7 +35,7 @@ class FileLog implements LogDriverI // FileLog class ını oluştur ve LogDriver
 
     public function tearDown(): void // tearDown olarak değer almayacağını ve void değeri ile dönüş yapacağını belirt
     {
-        $this->logFile = null; // logFile property'sini null yaparak boşalt
+        
     }
 }
 
