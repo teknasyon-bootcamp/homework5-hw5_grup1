@@ -27,10 +27,10 @@ return [
     | Veritabanı sürücüsünde kullanılacak olan bağlantı bilgileridir.
     |
     */
-    'host' => 'mariadb',
+    'host' => 'localhost',
     'port' => 3306,
-    'user' => 'default',
-    'password' => 'secret',
+    'user' => 'root',
+    'password' => '',
     'options' => [],
 
     /*
