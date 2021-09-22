@@ -61,15 +61,15 @@ class Transfer // Transfer class başlangıcı
                         {
                             $result = $this->db->create($table_name, $value); // db nesnesindeki create fonksiyonuna table_name, value değerlerini gönder ilgili veri dbye eklensin ve sonucunu result'a ata
 
-                            echo $table_name." : Verileri aktarıldı.<br>"; // ekrana table_name ve veri aktarıldığını yazdır
+                            $result = $table_name." : Verileri aktarıldı.<br>"; // ekrana table_name ve veri aktarıldığını yazdır
                         }
                         else
                         {
                             $result = $table_name." : Veriler aktarılmadı<br>"; // table_name ve veri aktarılmadığını result'a ata
-                            echo $result; // result değerini ekrana yazdır
                             logger::log("Import sırasında : $result",0); // hatayı logla
                         }
                     }
+					echo $result;
                 }
 
             }
