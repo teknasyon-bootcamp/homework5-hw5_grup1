@@ -15,7 +15,7 @@ if (isset($_POST['add'])) {
         'page_count' => $_POST['page_count'],
         'image_url' => $_POST['image_url'],
         'created_at' => time(),
-        'update_at' => time(),
+        'updated_at' => time(),
     ];
 
     $book->addBook($fields);
