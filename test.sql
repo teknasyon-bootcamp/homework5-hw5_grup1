@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 18, 2021 at 03:34 PM
+-- Generation Time: Sep 22, 2021 at 11:35 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -30,19 +30,21 @@ SET time_zone = "+00:00";
 CREATE TABLE `book` (
   `id` int(11) NOT NULL,
   `name` varchar(155) DEFAULT NULL,
+  `author` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `summary` text NOT NULL,
   `page_count` int(10) NOT NULL,
   `image_url` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
-  `update_at` datetime NOT NULL DEFAULT current_timestamp()
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `book`
 --
 
-INSERT INTO `book` (`id`, `name`, `summary`, `page_count`, `image_url`, `created_at`, `update_at`) VALUES
-(2, 'Araba Sevdası', 'Recaizade\'nin büyük aşkı...', 250, 'dodge_as250.jpg', '0000-00-00 00:00:00', '2021-09-18 12:04:30');
+INSERT INTO `book` (`id`, `name`, `author`, `summary`, `page_count`, `image_url`, `created_at`, `updated_at`) VALUES
+(2, 'Araba Sevdası', '', 'Recaizade\'nin büyük aşkı...', 250, 'dodge_as250.jpg', '0000-00-00 00:00:00', '2021-09-18 12:04:30'),
+(9, 'İntibah', 'Namık Kemal', 'Bir intibah hikayesi', 250, 'https://img.kitapyurdu.com/v1/getImage/fn:198802/wh:true/miw:200/mih:200', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -87,8 +89,8 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`id`, `book_id`, `section_id`, `author`, `content`, `created_at`, `updated_at`) VALUES
-(1, 0, 1, 'Namık Kemal', 'Üzerimde derin bir intibah bıraktın', '0000-00-00 00:00:00', '2021-09-18 00:00:00'),
-(2, 0, 2, 'Recaizade Mahmut Ekrem', 'Japon arabaları iyidir.', '0000-00-00 00:00:00', '2021-09-18 00:00:00');
+(10, 0, 7, 'dsdasd', 'asdad', '0000-00-00 00:00:00', '2021-09-20 23:38:59'),
+(11, 0, 7, 'yazar', 'qreqqwe1', '0000-00-00 00:00:00', '2021-09-21 00:04:41');
 
 -- --------------------------------------------------------
 
@@ -101,15 +103,15 @@ CREATE TABLE `section` (
   `book_id` int(10) NOT NULL,
   `name` varchar(155) NOT NULL,
   `created_at` datetime NOT NULL,
-  `update_at` datetime NOT NULL DEFAULT current_timestamp()
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `section`
 --
 
-INSERT INTO `section` (`id`, `book_id`, `name`, `created_at`, `update_at`) VALUES
-(1, 2, 'Arabanın alınması - Bölüm 1', '0000-00-00 00:00:00', '2021-09-18 00:00:00');
+INSERT INTO `section` (`id`, `book_id`, `name`, `created_at`, `updated_at`) VALUES
+(7, 9, 'hasan', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 --
 -- Indexes for dumped tables
@@ -147,7 +149,7 @@ ALTER TABLE `section`
 -- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `logs`
@@ -159,13 +161,13 @@ ALTER TABLE `logs`
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `section`
 --
 ALTER TABLE `section`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
